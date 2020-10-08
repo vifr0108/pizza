@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${PG_URL:localhost:5432/postgres}
+    username: ${PG_USER:postgres}
+    password: ${PG_PASSWORD:example}
+  application:
+    name: pizza
+  jpa:
+    #    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      flushMode: MANUAL
+      auto_commit: false
+      ddl-auto: create
+      jdbc:
+        batch_size: 30
