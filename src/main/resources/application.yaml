@@ -19,6 +19,7 @@ spring:
     username: ${PG_USER:postgres}
     password: ${PG_PASSWORD:example}
   application:
+# TODO: rename application from pizza to showcase-service
     name: pizza
   jpa:
     show-sql: true

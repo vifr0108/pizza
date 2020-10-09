@@ -1,9 +1,12 @@
 package frolovv.pizza.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
@@ -21,21 +24,13 @@ public class Showcase implements Serializable
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "pizza_id")
-    private Long id;
+    private String id;
     @Column(name = "pizza_name")
     private String name;
     @Column(name = "number")
     private Integer number;
-    @Column(name = "capacity")
-    private Integer capacity;
 
-    @Override
-    public String toString(){
-        return "showcase1{" + "pizza_id=" + id
-                + ", pizza_name=" + name
-                + ", number=" + number
-                + ", capacity=" + capacity + '\''+'}';
-    }
 }
