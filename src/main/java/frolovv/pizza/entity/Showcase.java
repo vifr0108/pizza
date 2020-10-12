@@ -31,6 +31,6 @@ public class Showcase implements Serializable
     @Column(name = "pizza_name")
     private String name;
     @Column(name = "number")
-    private Integer number;
+    private Integer number = 1;
 
 }

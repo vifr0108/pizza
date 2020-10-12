@@ -28,7 +28,7 @@ spring:
     hibernate:
       flushMode: MANUAL
       auto_commit: false
-      ddl-auto: update
+      ddl-auto: create-drop
       jdbc:
         batch_size: 30
 

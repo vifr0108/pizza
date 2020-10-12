@@ -6,32 +6,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class ShowcaseService
 {
+    private final ShowcaseRepository showcaseRepository;
+
     @Autowired
-    ShowcaseRepository showcaseRepository;
-
-    public List<Showcase> findAll(){
-        return showcaseRepository.findAll();
+    public ShowcaseService(ShowcaseRepository showcaseRepository)
+    {
+        this.showcaseRepository = showcaseRepository;
     }
 
-    public Integer reducePizza(String pizzaName){
-//TODO: rewrite to predicate and stream
-        if (showcaseRepository.count()>0) {
-            List<Showcase> scs = showcaseRepository.findByName(pizzaName);
-            for (Showcase showcase : scs){
-                showcase.setNumber(showcase.getNumber() - 1);
-            }
-            Stream.of(pizzaName).forEach(
-                    n -> showcaseRepository.save(new Showcase(n)));
-        }
-//        else
-//TODO: implement rest client call to cookPizza
-        return Math.toIntExact(showcaseRepository.count());
+//    public List<Showcase> findAll(){
+//        showcaseRepository.count();
+//        return showcaseRepository.findAll();
+//    }
+
+    public String reducePizza(String pizzaName)
+    {
+//TODO: rewrite to Optional due to can be empty
+        List<Showcase> sc = showcaseRepository.findByName(pizzaName);
+        sc.forEach(t -> t.setNumber(t.getNumber() - 1));
+        showcaseRepository.saveAll(sc);
+        return "Pizza eat " + pizzaName;
     }
 
+    public String increasePizza(String pizzaName)
+    {
+        Showcase sc = new Showcase(pizzaName);
+        showcaseRepository.save(sc);
+        return "Pizza cooked " + pizzaName;
+    }
+
+    //TODO: rewrite rest client call to cookPizza
+    public String increasePizzaClient()
+    {
+        return null;
+    }
 
 }
